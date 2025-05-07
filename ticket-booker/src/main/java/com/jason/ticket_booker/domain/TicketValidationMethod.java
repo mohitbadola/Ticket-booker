@@ -1,5 +1,5 @@
 package com.jason.ticket_booker.domain;
 
-public enum TicketValidationMethodEnum {
+public enum TicketValidationMethod {
     QR_SCAN, MANUAL
 }
