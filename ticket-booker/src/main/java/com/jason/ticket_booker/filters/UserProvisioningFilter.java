@@ -32,11 +32,11 @@ public class UserProvisioningFilter extends OncePerRequestFilter {
         if(authentication!=null
                 && authentication.isAuthenticated()
                 && authentication.getPrincipal() instanceof Jwt jwt){
-            UUID keyclockId = UUID.fromString(jwt.getSubject());
-            if(!userRepository.existsById(keyclockId)){
+            UUID keycloakId = UUID.fromString(jwt.getSubject());
+            if(!userRepository.existsById(keycloakId)){
 
                 User user = new User();
-                user.setId(keyclockId);
+                user.setId(keycloakId);
                 user.setName(jwt.getClaimAsString("preferred_username"));
                 user.setEmail(jwt.getClaimAsString("email"));
                 userRepository.save(user);
