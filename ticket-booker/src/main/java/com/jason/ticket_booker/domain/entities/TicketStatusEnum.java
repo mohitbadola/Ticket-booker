@@ -1,4 +1,4 @@
-package com.jason.ticket_booker.domain;
+package com.jason.ticket_booker.domain.entities;
 
 public enum TicketStatusEnum {
     PURCHASED, CANCELLED

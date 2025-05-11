@@ -1,6 +1,6 @@
 package com.jason.ticket_booker.filters;
 
-import com.jason.ticket_booker.domain.User;
+import com.jason.ticket_booker.domain.entities.User;
 import com.jason.ticket_booker.repositories.UserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
