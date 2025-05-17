@@ -5,6 +5,7 @@ import com.jason.ticket_booker.domain.entities.Event;
 import com.jason.ticket_booker.domain.entities.TicketType;
 import com.jason.ticket_booker.domain.entities.User;
 import com.jason.ticket_booker.exceptions.UserNotFoundException;
+import com.jason.ticket_booker.repositories.EventRepository;
 import com.jason.ticket_booker.repositories.UserRepository;
 import com.jason.ticket_booker.services.EventService;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,7 @@ import java.util.UUID;
 public class EventServiceImpl implements EventService {
 
     private final UserRepository userRepository;
+    private final EventRepository eventRepository;
 
     @Override
     public Event createEvent(UUID organizerId, CreateEventRequest event) {
@@ -45,6 +47,6 @@ public class EventServiceImpl implements EventService {
         eventToCreate.setOrganizer(organizer);
         eventToCreate.setTicketTypes(ticketTypesToCreate);
 
-        return null;
+        return eventRepository.save(eventToCreate);
     }
 }
