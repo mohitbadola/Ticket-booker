@@ -2,6 +2,8 @@ package com.jason.ticket_booker.mappers;
 
 import com.jason.ticket_booker.domain.CreateEventRequest;
 import com.jason.ticket_booker.domain.CreateTicketTypeRequest;
+import com.jason.ticket_booker.domain.UpdateEventRequest;
+import com.jason.ticket_booker.domain.UpdateTicketTypeRequest;
 import com.jason.ticket_booker.domain.dtos.*;
 import com.jason.ticket_booker.domain.entities.Event;
 import com.jason.ticket_booker.domain.entities.TicketType;
@@ -25,5 +27,12 @@ public interface EventMapper {
 
     GetEventDetailsResponseDto toGetEventDetailsResponseDto(Event event);
 
+    UpdateTicketTypeRequest fromDto(UpdateTicketTypeRequestDto dto);
+
+    UpdateEventRequest fromDto(UpdateEventRequestDto dto);
+
+    UpdateTicketTypeResponseDto toUpdateTicketTypeResponseDto(TicketType ticketType);
+
+    UpdateEventResponseDto toUpdateEventResponseDto(Event event);
     
 }
