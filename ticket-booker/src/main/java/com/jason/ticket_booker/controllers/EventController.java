@@ -3,6 +3,7 @@ package com.jason.ticket_booker.controllers;
 import com.jason.ticket_booker.domain.CreateEventRequest;
 import com.jason.ticket_booker.domain.dtos.CreateEventRequestDto;
 import com.jason.ticket_booker.domain.dtos.CreateEventResponseDto;
+import com.jason.ticket_booker.domain.dtos.GetEventDetailsResponseDto;
 import com.jason.ticket_booker.domain.dtos.ListEventResponseDto;
 import com.jason.ticket_booker.domain.entities.Event;
 import com.jason.ticket_booker.mappers.EventMapper;
@@ -27,7 +28,7 @@ public class EventController {
     private final EventMapper eventMapper;
     private final EventService eventService;
 
-    @PostMapping()
+    @PostMapping
     public ResponseEntity<CreateEventResponseDto> createEvent(
             @AuthenticationPrincipal Jwt jwt,
             @Valid @RequestBody CreateEventRequestDto createEventRequestDto){
@@ -47,6 +48,19 @@ public class EventController {
         Page<Event> events = eventService.listEventsForOrganizer(userId, pageable);
         return ResponseEntity.ok(
                 events.map(eventMapper::toListEventResponseDto));
+    }
+
+    @GetMapping(path = "/{eventId")
+    public ResponseEntity<GetEventDetailsResponseDto> getEvent(
+            @AuthenticationPrincipal Jwt jwt,
+            @PathVariable UUID eventId
+    ){
+        UUID userId = parsedUserId(jwt);
+
+        return eventService.getEventForOrganizer(userId, eventId)
+                .map(eventMapper::toGetEventDetailsResponseDto)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     private UUID parsedUserId(Jwt jwt){
