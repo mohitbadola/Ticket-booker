@@ -1,0 +1,23 @@
+package com.jason.ticket_booker.exceptions;
+
+public class EventUpdateException extends EventTicketException{
+
+    public EventUpdateException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+        super(message, cause, enableSuppression, writableStackTrace);
+    }
+
+    public EventUpdateException(Throwable cause) {
+        super(cause);
+    }
+
+    public EventUpdateException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public EventUpdateException(String message) {
+        super(message);
+    }
+
+    public EventUpdateException() {
+    }
+}
