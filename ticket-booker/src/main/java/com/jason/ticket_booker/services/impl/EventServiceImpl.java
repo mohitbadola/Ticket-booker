@@ -9,6 +9,8 @@ import com.jason.ticket_booker.repositories.EventRepository;
 import com.jason.ticket_booker.repositories.UserRepository;
 import com.jason.ticket_booker.services.EventService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -51,4 +53,10 @@ public class EventServiceImpl implements EventService {
 
         return eventRepository.save(eventToCreate);
     }
+
+    @Override
+    public Page<Event> listEventsForOrganizer(UUID organizerId, Pageable pageable) {
+        return eventRepository.findByOrganizerId(organizerId, pageable);
+    }
+
 }
