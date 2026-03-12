@@ -1,10 +1,8 @@
 package com.jason.ticket_booker.controllers;
 
 import com.jason.ticket_booker.domain.CreateEventRequest;
-import com.jason.ticket_booker.domain.dtos.CreateEventRequestDto;
-import com.jason.ticket_booker.domain.dtos.CreateEventResponseDto;
-import com.jason.ticket_booker.domain.dtos.GetEventDetailsResponseDto;
-import com.jason.ticket_booker.domain.dtos.ListEventResponseDto;
+import com.jason.ticket_booker.domain.UpdateEventRequest;
+import com.jason.ticket_booker.domain.dtos.*;
 import com.jason.ticket_booker.domain.entities.Event;
 import com.jason.ticket_booker.mappers.EventMapper;
 import com.jason.ticket_booker.services.EventService;
@@ -39,6 +37,24 @@ public class EventController {
         CreateEventResponseDto createEventResponseDto = eventMapper.toDto(createdEvent);
         return new ResponseEntity<>(createEventResponseDto, HttpStatus.CREATED);
     }
+
+
+    @PutMapping(path="/{eventId}")
+    public ResponseEntity<UpdateEventResponseDto> updateEvent(
+            @AuthenticationPrincipal Jwt jwt,
+            @PathVariable UUID eventId,
+            @Valid @RequestBody UpdateEventRequestDto updateEventRequestDto){
+        UpdateEventRequest updateEventRequest = eventMapper.fromDto(updateEventRequestDto);
+        UUID userId = parsedUserId(jwt);
+
+        Event updatedEvent = eventService.updateEventForOrganizer(userId,
+                eventId, updateEventRequest
+        );
+
+        UpdateEventResponseDto updateEventResponseDto = eventMapper.toUpdateEventResponseDto(updatedEvent);
+        return ResponseEntity.ok(updateEventResponseDto);
+    }
+
 
     @GetMapping
     public ResponseEntity<Page<ListEventResponseDto>> listEvents(
